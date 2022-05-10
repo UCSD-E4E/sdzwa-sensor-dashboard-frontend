@@ -10,9 +10,10 @@ import Col from 'react-bootstrap/Col'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock, faPaw } from '@fortawesome/free-solid-svg-icons'
 import { Navbar } from 'react-bootstrap'
-
+import useWindowDimensions from '../components/useWindowDimensions'
 
 const Login: NextPage = () => {
+    const { height, width } = useWindowDimensions();
     return (
         <div className={styles.container} id="login-home" >
             <Head>
@@ -27,12 +28,9 @@ const Login: NextPage = () => {
                     <Button variant="outline-primary">Register</Button>
                 </Container>
             </Navbar>
-            <Container className="w-75 d-flex align-items-center justify-content-center" id="login-form-container">
-                <Row>
-                    <h1>Welcome to the SDZWA Sensor Dashboard <FontAwesomeIcon icon={faPaw}/></h1>
-                </Row>
-                <Row>
-                    <Form>
+            <Container style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: '90vh'}}>
+                    <h1 style={{flex: 1, marginTop: width > 600 ? '15%' : '35%', textAlign: 'center'}}>Welcome to the SDZWA Sensor Dashboard <FontAwesomeIcon icon={faPaw}/></h1>
+                    <Form style={{width: width > 600 ? '50%' : '70%', flex: 1, marginTop: '5%', marginBottom: width > 600 ? '80%' : '100%'}}>
                         <InputGroup className="mb-3">
                             <InputGroup.Text id="email-addon">
                                 <FontAwesomeIcon icon={faEnvelope} style={{color: 'royalblue'}}/>
@@ -44,16 +42,13 @@ const Login: NextPage = () => {
                                 <FontAwesomeIcon icon={faLock} style={{color: 'royalblue'}}/>
                             </InputGroup.Text>
                             <Form.Control type="password" placeholder="Password" />
-                        </InputGroup>
-                        <Row>
-                            <Col className="text-center">
-                                <Button variant="primary" type="submit">
-                                    Login
-                                </Button>
-                            </Col>
-                        </Row> 
+                        </InputGroup >
+                        <div style={{display: 'flex', alignItems: 'center', flexDirection: 'row', width: '100%'}}>
+                        <Button variant="primary" type="submit" style={{flex: 1, marginLeft: '20%', marginRight: '20%', alignItems: 'center', alignSelf: 'center'}}>
+                            Login
+                        </Button>
+                        </div>
                     </Form>
-                </Row>
             </Container>
         </div>
     )

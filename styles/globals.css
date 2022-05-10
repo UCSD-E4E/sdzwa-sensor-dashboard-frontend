@@ -23,14 +23,3 @@ a {
 #reg-form-container {
   height: 100%;
 }
-
-#login-home{
-
-}
-
-#login-form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height:100vh;  
-}
