@@ -12,6 +12,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
+    "@loadable/component": "^5.15.2",
     "@visx/curve": "^2.1.0",
     "@visx/event": "^2.6.0",
     "@visx/gradient": "^2.1.0",

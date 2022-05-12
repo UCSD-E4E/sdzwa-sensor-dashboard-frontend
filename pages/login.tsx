@@ -14,6 +14,7 @@ import useWindowDimensions from '../components/useWindowDimensions'
 
 const Login: NextPage = () => {
     const { height, width } = useWindowDimensions();
+    
     return (
         <div className={styles.container} id="login-home" >
             <Head>
