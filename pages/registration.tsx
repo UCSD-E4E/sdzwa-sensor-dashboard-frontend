@@ -10,9 +10,10 @@ import Col from 'react-bootstrap/Col'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock, faPaw } from '@fortawesome/free-solid-svg-icons'
 import { Navbar } from 'react-bootstrap'
-
+import useWindowDimensions from '../components/useWindowDimensions'
 
 const Registration: NextPage = () => {
+    const { height, width } = useWindowDimensions();
     return (
         <div className={styles.container} id="registration-home">
             <Head>
@@ -26,45 +27,33 @@ const Registration: NextPage = () => {
                     <Button variant="outline-primary">Login</Button>
                 </Container>
             </Navbar>
-            <Container className="w-75 d-flex align-items-center justify-content-center" id="reg-form-container">
-                <Row>
-                    <h1>Welcome to the SDZWA Sensor Dashboard <FontAwesomeIcon icon={faPaw}/></h1>
-                </Row>
-                <Row>
-                    <Form>
-                        <Row>
-                            <Col>
-                                <Form.Group className="mb-3" controlId="firstName">
-                                    <Form.Control type="text" placeholder="First name" />
-                                </Form.Group>
-                            </Col>
-                            <Col>
-                                <Form.Group className="mb-3" controlId="lastName">    
-                                    <Form.Control type="text" placeholder="Last name" />
-                                </Form.Group>
-                            </Col>
-                        </Row>
-                        <InputGroup className="mb-3">
-                            <InputGroup.Text id="email-addon">
-                                <FontAwesomeIcon icon={faEnvelope} style={{color: 'royalblue'}}/>
-                            </InputGroup.Text>
-                            <Form.Control type="email" placeholder="Enter email" />
-                        </InputGroup>
-                        <InputGroup className="mb-3">
-                            <InputGroup.Text id="pass-addon">
-                                <FontAwesomeIcon icon={faLock} style={{color: 'royalblue'}}/>
-                            </InputGroup.Text>
-                            <Form.Control type="password" placeholder="Password" />
-                        </InputGroup>
-                        <Row>
-                            <Col className="text-center">
-                                <Button variant="primary" type="submit">
-                                    Sign Up
-                                </Button>
-                            </Col>
-                        </Row> 
-                    </Form>
-                </Row>
+            <Container style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: '90vh'}} id="reg-form-container">
+                <h1 style={{flex: 1, marginTop: width > 600 ? '15%' : '35%', textAlign: 'center'}}>Welcome to the SDZWA Sensor Dashboard <FontAwesomeIcon icon={faPaw}/></h1>
+                <Form style={{width: width > 600 ? '50%' : '70%', flex: 1, marginTop: '5%', marginBottom: width > 600 ? '80%' : '100%'}}>
+                    <Form.Group className="mb-3" controlId="firstName">
+                        <Form.Control type="text" placeholder="First name" />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="lastName">    
+                        <Form.Control type="text" placeholder="Last name" />
+                    </Form.Group>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Text id="email-addon">
+                            <FontAwesomeIcon icon={faEnvelope} style={{color: 'royalblue'}}/>
+                        </InputGroup.Text>
+                        <Form.Control type="email" placeholder="Enter email" />
+                    </InputGroup>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Text id="pass-addon">
+                            <FontAwesomeIcon icon={faLock} style={{color: 'royalblue'}}/>
+                        </InputGroup.Text>
+                        <Form.Control type="password" placeholder="Password" />
+                    </InputGroup>
+                    <div style={{display: 'flex', alignItems: 'center', flexDirection: 'row', width: '100%'}}>
+                        <Button variant="primary" type="submit" style={{flex: 1, marginLeft: '20%', marginRight: '20%', alignItems: 'center', flexDirection: 'row', width: '100%', alignSelf: 'center'}}>
+                            Sign Up
+                        </Button>
+                    </div>
+                </Form>
             </Container>
         </div>
     )

@@ -5,6 +5,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import Area from '../components/Area'
+import Link from 'next/link';
 
 const Home: NextPage = () => {
   return (
