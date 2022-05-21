@@ -11,9 +11,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock, faPaw } from '@fortawesome/free-solid-svg-icons'
 import { Navbar } from 'react-bootstrap'
 import useWindowDimensions from '../components/useWindowDimensions'
+import Link from 'next/link';
 
 const Login: NextPage = () => {
     const { height, width } = useWindowDimensions();
+
     
     return (
         <div className={styles.container} id="login-home" >
@@ -26,7 +28,7 @@ const Login: NextPage = () => {
             <Navbar bg="light">
                 <Container>
                     <Navbar.Brand href="#home">SDZWA Sensor Dashboard</Navbar.Brand>
-                    <Button variant="outline-primary">Register</Button>
+                    <Button variant="outline-primary" href="registration">Register</Button>
                 </Container>
             </Navbar>
             <Container style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: '90vh'}}>
@@ -45,7 +47,7 @@ const Login: NextPage = () => {
                             <Form.Control type="password" placeholder="Password" />
                         </InputGroup >
                         <div style={{display: 'flex', alignItems: 'center', flexDirection: 'row', width: '100%'}}>
-                        <Button variant="primary" type="submit" style={{flex: 1, marginLeft: '20%', marginRight: '20%', alignItems: 'center', alignSelf: 'center'}}>
+                        <Button variant="primary" type="submit" href=".." style={{flex: 1, marginLeft: '20%', marginRight: '20%', alignItems: 'center', alignSelf: 'center'}}>
                             Login
                         </Button>
                         </div>

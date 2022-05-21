@@ -24,7 +24,7 @@ const Registration: NextPage = () => {
             <Navbar bg="light">
                 <Container>
                     <Navbar.Brand href="#home">SDZWA Sensor Dashboard</Navbar.Brand>
-                    <Button variant="outline-primary">Login</Button>
+                    <Button variant="outline-primary" href="login">Login</Button>
                 </Container>
             </Navbar>
             <Container style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: '90vh'}} id="reg-form-container">
@@ -49,7 +49,7 @@ const Registration: NextPage = () => {
                         <Form.Control type="password" placeholder="Password" />
                     </InputGroup>
                     <div style={{display: 'flex', alignItems: 'center', flexDirection: 'row', width: '100%'}}>
-                        <Button variant="primary" type="submit" style={{flex: 1, marginLeft: '20%', marginRight: '20%', alignItems: 'center', flexDirection: 'row', width: '100%', alignSelf: 'center'}}>
+                        <Button variant="primary" type="submit" href=".." style={{flex: 1, marginLeft: '20%', marginRight: '20%', alignItems: 'center', flexDirection: 'row', width: '100%', alignSelf: 'center'}}>
                             Sign Up
                         </Button>
                     </div>

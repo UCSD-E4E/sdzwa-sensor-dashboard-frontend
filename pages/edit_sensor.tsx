@@ -26,7 +26,7 @@ const Edit: NextPage = () => {
             
             <Navbar bg="light">
                 <Container>
-                    <Button variant="outline-primary" size="sm">Back</Button>{' '}
+                    <Button variant="outline-primary" size="sm" href="..">Back</Button>{' '}
                     <Navbar.Brand href="#home">SDZWA Sensor Dashboard</Navbar.Brand>
                 </Container>
             </Navbar>
@@ -74,7 +74,7 @@ const Edit: NextPage = () => {
 
 
 
-                    <Button variant="primary" type="submit">
+                    <Button variant="primary" type="submit" href="..">
                         Submit
                     </Button>
                     </Form> 

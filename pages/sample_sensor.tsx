@@ -6,9 +6,10 @@ import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import Area from '../components/Area'
 import StatusBarChart from '../components/status_bar_chart'
-import Link from 'next/link';
+import { EditButton } from 'react-admin';
 
 const Home: NextPage = () => {
+  
   return (
     <div className={styles.container}>
       <Head>
@@ -19,12 +20,14 @@ const Home: NextPage = () => {
       <Navbar bg="light">
         <Container>
           <Navbar.Brand href="#home">SDZWA Sensor Dashboard</Navbar.Brand>
-          <Button variant="outline-primary">Sign Out</Button>
+          
+          <Button variant="outline-primary" href="login">Sign Out</Button>
         </Container>
       </Navbar>
       <Container style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: '90vh'}}>
         <div style={{marginTop: 25}}>
         <h1 style={{flex: 1, textAlign: 'center'}}>Zoo Visitors</h1>
+        <div style={{flex: 1, textAlign: 'right'}} > <Button variant="light" href="edit_sensor">Edit</Button></div>
         <Area width={400} height={300} />
         <div style={{display: 'flex', width: '50%'}}>
             <div style={{display: 'flex', width: '25%'}}>

@@ -18,14 +18,25 @@ const Home: NextPage = () => {
       <Navbar bg="light">
         <Container>
           <Navbar.Brand href="#home">SDZWA Sensor Dashboard</Navbar.Brand>
-          <Button variant="outline-primary">Sign Out</Button>
+          <Button variant="outline-primary" href="login">Sign Out</Button>
         </Container>
       </Navbar>
       <Container>
-        <div style={{marginTop: 25}}>
+        <div style={{float: 'right', margin: 25}}>
           <Area width={400} height={300} />
+          <div style={{marginTop: 100}}>
+          <Area width={400} height={300} />
+          </div>
+
         </div>
-      </Container>
+
+        <div style={{ float: 'left', margin: 25}}>
+          <Area width={400} height={300} />
+          <div style={{marginTop: 100}}>
+          <Area width={400} height={300} />
+          </div>
+          </div>
+        </Container>
     </div>
   )
 }
