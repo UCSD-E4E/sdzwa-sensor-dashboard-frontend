@@ -5,6 +5,11 @@ import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import Area from '../components/Area'
+import Link from 'next/link'
+import React from 'react'
+import ReactPlayer from 'react-player'
+import ReactAudioPlayer from 'react-audio-player';
+
 
 const Home: NextPage = () => {
   return (
@@ -17,14 +22,59 @@ const Home: NextPage = () => {
       <Navbar bg="light">
         <Container>
           <Navbar.Brand href="#home">SDZWA Sensor Dashboard</Navbar.Brand>
-          <Button variant="outline-primary">Sign Out</Button>
+          <Button variant="outline-primary" href="login">Sign Out</Button>
         </Container>
       </Navbar>
       <Container>
-        <div style={{marginTop: 25}}>
-          <Area width={400} height={300} />
+        <div style={{float: 'right', margin: 25}}>
+        <div style={{ height:300, width:400}}>
+        <ReactAudioPlayer
+          src=""
+          autoPlay
+          controls
+        />
         </div>
-      </Container>
+
+          <div style={{textAlign: 'center'}}>Live Audio</div>
+            <div style={{textAlign: 'right'}}><b>Status: </b>
+                      <Button variant="warning" size="sm" disabled>
+                          Partially Functional
+                      </Button>{' '}
+            </div>
+          <div style={{marginTop: 100, height: 300, width: 400, backgroundColor: '#E6EBEE'}}>
+            <div style={{margin: 100, textAlign: 'center'}}><h2>Add New</h2></div>
+            <div style={{textAlign: 'center'}}>
+                      <Button variant="outline-secondary" size="lg" href="edit_sensor">
+                          +
+                      </Button>{' '}
+            </div>
+          </div>
+
+        </div>
+
+        <div style={{ float: 'left', margin: 25}}>
+          <Area width={400} height={300} />
+          <div style={{textAlign: 'center'}}>Zoo Visitors</div>
+            <div style={{textAlign: 'right'}}><b>Status: </b>
+                      <Button variant="danger" size="sm" disabled>
+                          Offline
+                      </Button>{' '}
+            </div>
+          <div style={{marginTop: 100}}>
+          <ReactPlayer url='https://www.youtube.com/watch?v=RjE8heiBU-Q' height={300} width={400} />
+          <div style={{textAlign: 'center'}}>Ape Cam</div>
+            <div style={{textAlign: 'right'}}><b>Status: </b>
+                      <Button variant="success" size="sm" disabled>
+                          Good
+                      </Button>{' '}
+            </div>
+          
+
+
+          
+          </div>
+          </div>
+        </Container>
     </div>
   )
 }
