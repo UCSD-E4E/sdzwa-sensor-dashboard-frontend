@@ -61,7 +61,7 @@ const Home: NextPage = () => {
                       </Button>{' '}
             </div>
           <div style={{marginTop: 100}}>
-          <ReactPlayer url='https://www.youtube.com/watch?v=RjE8heiBU-Q' height={300} width={400} />
+          <ReactPlayer height={300} width={400} />
           <div style={{textAlign: 'center'}}>Ape Cam</div>
             <div style={{textAlign: 'right'}}><b>Status: </b>
                       <Button variant="success" size="sm" disabled>
