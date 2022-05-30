@@ -6,12 +6,24 @@ import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import Area from '../components/Area'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactPlayer from 'react-player'
 import ReactAudioPlayer from 'react-audio-player';
+import { register } from '../services/User';
 
 
 const Home: NextPage = () => {
+
+  useEffect(() => {
+    register({
+      firstName: 'Ahmed',
+      lastName: 'Hussaini',
+      email: 'ahmed@gmail.com',
+      passwordHash: '12345',
+      passwordSalt: 'ASDFG'
+    });
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>

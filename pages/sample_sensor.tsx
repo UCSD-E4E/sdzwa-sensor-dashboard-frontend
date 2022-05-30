@@ -31,23 +31,23 @@ const Home: NextPage = () => {
         <Area width={400} height={300} />
         <div style={{display: 'flex', width: '50%'}}>
             <div style={{display: 'flex', width: '25%'}}>
-                <p>
+                <div>
                     <b>Type: </b>Numerical/Time Series
                     <br></br>
                     <b>Format:  </b> Line Chart
                     <br></br>
                     <b>Historical Status: </b>
-                </p>
+                </div>
                 </div>
                 <div style={{display: 'flex', marginLeft: '100%'}}>
-                    <p>
+                    <div>
                     <b>Source: </b> Relational Database
                     <br></br>
                     <b>Status: </b>
                     <Button variant="success" size="sm" disabled>
                         Good
                     </Button>{' '}
-                    </p>
+                    </div>
                 </div>
             </div>
             <StatusBarChart width={400} height={100} />
