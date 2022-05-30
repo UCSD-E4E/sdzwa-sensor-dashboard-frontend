@@ -1,7 +1,7 @@
 import { constructEndpointUrl, sendRequest } from './Api';
 
-const REGISTRATION_ENDPOINT = '/register';
-const AUTHENTICATION_ENDPOINT = '/login';
+const REGISTRATION_ENDPOINT = '/api/user/register';
+const AUTHENTICATION_ENDPOINT = '/api/user/login';
 
 export type NewUser = {
     firstName: string;
@@ -19,11 +19,11 @@ export type AuthUser = {
 
 export const register = (newUser: NewUser) => {
     const body = {
-        FirstName: newUser.firstName,
-        LastName: newUser.lastName,
-        Email: newUser.email,
-        PasswordHash: newUser.passwordHash,
-        PasswordSalt: newUser.passwordSalt
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        email: newUser.email,
+        password: newUser.passwordHash,
+        salt: newUser.passwordSalt
     };
     const url = constructEndpointUrl(REGISTRATION_ENDPOINT, '');
     const method = 'POST';
@@ -33,9 +33,9 @@ export const register = (newUser: NewUser) => {
 
 export const login = (authUser: AuthUser) => {
     const body = {
-        Email: authUser.email,
-        PasswordHash: authUser.passwordHash,
-        PasswordSalt: authUser.passwordSalt
+        email: authUser.email,
+        password: authUser.passwordHash,
+        salt: authUser.passwordSalt
     };
     const url = constructEndpointUrl(AUTHENTICATION_ENDPOINT, '');
     const method = 'POST';

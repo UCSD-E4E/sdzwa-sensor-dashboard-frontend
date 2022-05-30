@@ -9,19 +9,32 @@ import Link from 'next/link'
 import React, { useEffect } from 'react'
 import ReactPlayer from 'react-player'
 import ReactAudioPlayer from 'react-audio-player';
-import { register } from '../services/User';
+import { login, register } from '../services/User';
 
 
 const Home: NextPage = () => {
 
   useEffect(() => {
-    register({
+    /*register({
       firstName: 'Ahmed',
       lastName: 'Hussaini',
       email: 'ahmed@gmail.com',
       passwordHash: '12345',
-      passwordSalt: 'ASDFG'
-    });
+      passwordSalt: 'ABCD',   
+    });*/
+    try {
+      console.log(register({
+        firstName: 'Ahmed',
+        lastName: 'Hussaini',
+        email: 'ahmed@gmail.com',
+        passwordHash: '12345',
+        passwordSalt: 'ABCD',   
+      }));
+    } catch (e) {
+      console.log(e);
+    }
+    //let loginResponseJson = loginResponse.json();
+    //console.log(loginResponse);
   }, []);
 
   return (
