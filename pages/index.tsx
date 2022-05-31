@@ -23,12 +23,10 @@ const Home: NextPage = () => {
       passwordSalt: 'ABCD',   
     });*/
     try {
-      console.log(register({
-        firstName: 'Ahmed',
-        lastName: 'Hussaini',
-        email: 'ahmed@gmail.com',
+      console.log(login({
+        email: 'testting@gmail.com',
         passwordHash: '12345',
-        passwordSalt: 'ABCD',   
+        passwordSalt: 'ABCD', 
       }));
     } catch (e) {
       console.log(e);

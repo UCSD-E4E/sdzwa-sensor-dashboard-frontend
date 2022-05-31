@@ -1,9 +1,9 @@
 import { constructEndpointUrl, sendRequest } from './Api';
 
-const SENSOR_ENDPOINT = '/sensor';
-const ADD_SENSOR_ENDPOINT = '/add-sensor';
-const EDIT_SENSOR_ENDPOINT = '/edit-sensor';
-const DELETE_SENSOR_ENDPOINT = '/delete-sensor';
+const SENSOR_ENDPOINT = '/api/sensor/id/';
+const ADD_SENSOR_ENDPOINT = '/api/sensor/';
+const EDIT_SENSOR_ENDPOINT = '/api/sensor/id/';
+const DELETE_SENSOR_ENDPOINT = '/api/sensor/name/';
 
 export type Sensor = {
     id: string;
