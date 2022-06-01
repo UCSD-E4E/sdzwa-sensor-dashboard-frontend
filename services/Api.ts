@@ -40,6 +40,6 @@ type RequestObject = {
       ...DEFAULT_HEADERS,
     };
     console.log(params.headers)
-    return fetch(requestObject.url, params).then(response => response.json());
+    fetch(requestObject.url, params).then(json => console.log(`json: ${json}`));
   };
   

@@ -7,14 +7,12 @@ export type NewUser = {
     firstName: string;
     lastName: string;
     email: string;
-    passwordHash: string;
-    passwordSalt: string;
+    password: string;
 }
 
 export type AuthUser = {
     email: string;
-    passwordHash: string;
-    passwordSalt: string;
+    password: string;
 }
 
 export const register = (newUser: NewUser) => {
@@ -22,8 +20,7 @@ export const register = (newUser: NewUser) => {
         firstName: newUser.firstName,
         lastName: newUser.lastName,
         email: newUser.email,
-        password: newUser.passwordHash,
-        salt: newUser.passwordSalt
+        password: newUser.password,
     };
     const url = constructEndpointUrl(REGISTRATION_ENDPOINT, '');
     const method = 'POST';
@@ -34,8 +31,7 @@ export const register = (newUser: NewUser) => {
 export const login = (authUser: AuthUser) => {
     const body = {
         email: authUser.email,
-        password: authUser.passwordHash,
-        salt: authUser.passwordSalt
+        password: authUser.password,
     };
     const url = constructEndpointUrl(AUTHENTICATION_ENDPOINT, '');
     const method = 'POST';

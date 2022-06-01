@@ -10,6 +10,7 @@ import React, { useEffect } from 'react'
 import ReactPlayer from 'react-player'
 import ReactAudioPlayer from 'react-audio-player';
 import { login, register } from '../services/User';
+import { fetchUtils } from 'react-admin'
 
 
 const Home: NextPage = () => {
@@ -22,12 +23,23 @@ const Home: NextPage = () => {
       passwordHash: '12345',
       passwordSalt: 'ABCD',   
     });*/
+    fetch("http://localhost:5000/api/sensor/id/21", {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJsYWhAZ21haWwuY29tIiwiaWF0IjoxNjU0MTE3NjY1LCJleHAiOjE2NTQxMjQ4NjV9.5Dh87ebJKR_GK1uQRBUFQ2s7Yt-Kx_1aPceLOMuo-YU',
+      },
+      method: 'PUT',
+      body: JSON.stringify({"name": "Sensor2"})
+    })
+    .then(response => response.json())
+    .then(data => console.log(data));
     try {
-      console.log(login({
-        email: 'testting@gmail.com',
-        passwordHash: '12345',
-        passwordSalt: 'ABCD', 
-      }));
+      /*console.log(register({
+        firstName:  "Brandon",
+        lastName: "Dalporto",
+        email: 'blah@gmail.com',
+        password: "12345",
+      }));*/
     } catch (e) {
       console.log(e);
     }
@@ -84,7 +96,7 @@ const Home: NextPage = () => {
                       </Button>{' '}
             </div>
           <div style={{marginTop: 100}}>
-          <ReactPlayer height={300} width={400} />
+          {/*<ReactPlayer height={300} width={400}*/}
           <div style={{textAlign: 'center'}}>Ape Cam</div>
             <div style={{textAlign: 'right'}}><b>Status: </b>
                       <Button variant="success" size="sm" disabled>
