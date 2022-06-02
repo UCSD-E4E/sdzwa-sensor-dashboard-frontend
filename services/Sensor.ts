@@ -19,6 +19,13 @@ export type EditSensor = {
     authToken: string;
 }
 
+export const getAllSensors = (authToken: string) => {
+    const url = constructEndpointUrl(ADD_SENSOR_ENDPOINT, '');
+    const method = 'GET';
+    
+    return sendRequest({ url, method, body: {}, headers: {}, authToken});
+}
+
 export const getSensor = (sensor: Sensor) => {
     const url = constructEndpointUrl(SENSOR_ENDPOINT, `?sensorId=${sensor.id}`);
     const method = 'GET';

@@ -42,6 +42,7 @@ const Registration: NextPage = () => {
                 router.push('/');
             }
         } catch (e) {
+            alert('Oops, something went wrong!');
             console.error(e);
         }
     };

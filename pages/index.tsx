@@ -2,27 +2,60 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
+import { useState } from 'react'
 import styles from '../styles/Home.module.css'
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Area from '../components/Area'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
 import ReactPlayer from 'react-player'
 import ReactAudioPlayer from 'react-audio-player';
-import { login, register } from '../services/User';
+import { getAllSensors } from '../services/Sensor';
 import { fetchUtils } from 'react-admin'
 
 
 const Home: NextPage = () => {
   const router = useRouter();
   const [cookies, setCookie] = useCookies(['token']);
+  const [sensors, setSensors] = useState([]);
+
+  const getStatusStyle = (status: number) => {
+    switch (status) {
+      case 1: return 'success';
+      case 2: return 'warning';
+      case 3: return 'danger';
+    }
+  }
+
+  const getStatusMessage = (status: number) => {
+    switch (status) {
+      case 1: return 'Online';
+      case 2: return 'Partially Functional';
+      case 3: return 'Offline';
+    }
+  }
 
   useEffect(() => {
-    if (!cookies.token || cookies.token == '') {
-      router.push('/registration');
-    } 
+    async function fetchData() {
+      if (!cookies.token || cookies.token == '') {
+        router.push('/registration');
+      } else {
+        try {
+          const sensorResponse = await getAllSensors(cookies.token);
+          const sensorResponseJson = await sensorResponse.json();
+          console.log(sensorResponseJson);
+          setSensors(sensorResponseJson);
+        } catch (e) {
+          alert('Oops, something went wrong!');
+          console.error(e);
+        }
+      }
+    }
+    fetchData();
   }, [router, cookies]);
 
   const signOut = () => {
@@ -44,55 +77,29 @@ const Home: NextPage = () => {
         </Container>
       </Navbar>
       <Container>
-        <div style={{float: 'right', margin: 25}}>
-        <div style={{ height:300, width:400}}>
-        <ReactAudioPlayer
-          src=""
-          autoPlay
-          controls
-        />
-        </div>
-
-          <div style={{textAlign: 'center'}}>Live Audio</div>
-            <div style={{textAlign: 'right'}}><b>Status: </b>
-                      <Button variant="warning" size="sm" disabled>
-                          Partially Functional
-                      </Button>{' '}
+        <Row>
+          {sensors.map((sensor: any, key: number) => (
+            <Col style={{marginTop: 50}} key={key}>
+              <Area width={400} height={300} />
+              <div style={{ fontWeight: 'bold', fontSize: 26 }}>{sensor.name}</div>
+              <div style={{ fontSize: 22, fontWeight: 'lighter' }}>{sensor.description}</div>
+              <div style={{ fontSize: 20 }}>Status:{' '}
+                <Button variant={getStatusStyle(sensor.status)} size="sm" disabled>
+                  {getStatusMessage(sensor.status)}
+                </Button>{' '}
+              </div>
+            </Col>
+          ))}
+          <Col>
+            <div onClick={() => {router.push('/edit_sensor')}} style={{ paddingTop: 100, marginTop: 50, marginBottom: 50, height: 300, width: 400, backgroundColor: '#E6EBEE', borderRadius: 15 }}>
+              <div style={{ textAlign: 'center', color: 'gray' }}><h2>Add New</h2></div>
+              <div style={{ textAlign: 'center', marginTop: -25, fontWeight: 'bold', fontSize: 64, color: 'gray'}}>
+                +
+              </div>
             </div>
-          <div style={{marginTop: 100, height: 300, width: 400, backgroundColor: '#E6EBEE'}}>
-            <div style={{margin: 100, textAlign: 'center'}}><h2>Add New</h2></div>
-            <div style={{textAlign: 'center'}}>
-                      <Button variant="outline-secondary" size="lg" href="edit_sensor">
-                          +
-                      </Button>{' '}
-            </div>
-          </div>
-
-        </div>
-
-        <div style={{ float: 'left', margin: 25}}>
-          <Area width={400} height={300} />
-          <div style={{textAlign: 'center'}}>Zoo Visitors</div>
-            <div style={{textAlign: 'right'}}><b>Status: </b>
-                      <Button variant="danger" size="sm" disabled>
-                          Offline
-                      </Button>{' '}
-            </div>
-          <div style={{marginTop: 100}}>
-          {/*<ReactPlayer height={300} width={400}*/}
-          <div style={{textAlign: 'center'}}>Ape Cam</div>
-            <div style={{textAlign: 'right'}}><b>Status: </b>
-                      <Button variant="success" size="sm" disabled>
-                          Good
-                      </Button>{' '}
-            </div>
-          
-
-
-          
-          </div>
-          </div>
-        </Container>
+          </Col>
+        </Row>
+      </Container>
     </div>
   )
 }
