@@ -1,6 +1,8 @@
 import type { NextPage } from 'next'
 import { useState } from 'react'
+import { useCookies } from 'react-cookie';
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import styles from '../styles/Home.module.css'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
@@ -15,13 +17,15 @@ import useWindowDimensions from '../components/useWindowDimensions'
 import { register } from '../services/User'
 
 const Registration: NextPage = () => {
+    const router = useRouter();
     const { height, width } = useWindowDimensions();
+    const [cookies, setCookie] = useCookies(['token']);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const signUp = () => {
+    const signUp = async (event: any) => {
         event?.preventDefault();
         const req = {
             firstName: firstName,
@@ -30,7 +34,13 @@ const Registration: NextPage = () => {
             password: password
         };
         try {
-            console.log(register(req));
+            const registrationResponse = await register(req);
+            const registrationResponseJson = await registrationResponse.json();
+            if (registrationResponseJson.token) {
+                setCookie('token', registrationResponseJson.token, { path: '/' });
+                console.log('Successfully retrieved token');
+                router.push('/');
+            }
         } catch (e) {
             console.error(e);
         }

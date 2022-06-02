@@ -1,5 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useCookies } from 'react-cookie'
 import styles from '../styles/Home.module.css'
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
@@ -14,38 +16,19 @@ import { fetchUtils } from 'react-admin'
 
 
 const Home: NextPage = () => {
+  const router = useRouter();
+  const [cookies, setCookie] = useCookies(['token']);
 
   useEffect(() => {
-    /*register({
-      firstName: 'Ahmed',
-      lastName: 'Hussaini',
-      email: 'ahmed@gmail.com',
-      passwordHash: '12345',
-      passwordSalt: 'ABCD',   
-    });*/
-    fetch("http://localhost:5000/api/sensor/id/21", {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJsYWhAZ21haWwuY29tIiwiaWF0IjoxNjU0MTE3NjY1LCJleHAiOjE2NTQxMjQ4NjV9.5Dh87ebJKR_GK1uQRBUFQ2s7Yt-Kx_1aPceLOMuo-YU',
-      },
-      method: 'PUT',
-      body: JSON.stringify({"name": "Sensor2"})
-    })
-    .then(response => response.json())
-    .then(data => console.log(data));
-    try {
-      /*console.log(register({
-        firstName:  "Brandon",
-        lastName: "Dalporto",
-        email: 'blah@gmail.com',
-        password: "12345",
-      }));*/
-    } catch (e) {
-      console.log(e);
-    }
-    //let loginResponseJson = loginResponse.json();
-    //console.log(loginResponse);
-  }, []);
+    if (!cookies.token || cookies.token == '') {
+      router.push('/registration');
+    } 
+  }, [router, cookies]);
+
+  const signOut = () => {
+    setCookie('token', '');
+    router.push('/login');
+  }
 
   return (
     <div className={styles.container}>
@@ -57,7 +40,7 @@ const Home: NextPage = () => {
       <Navbar bg="light">
         <Container>
           <Navbar.Brand href="#home">SDZWA Sensor Dashboard</Navbar.Brand>
-          <Button variant="outline-primary" href="login">Sign Out</Button>
+          <Button onClick={signOut} variant="outline-primary" href="login">Sign Out</Button>
         </Container>
       </Navbar>
       <Container>

@@ -1,6 +1,8 @@
 import type { NextPage } from 'next'
 import { useState } from 'react'
+import { useCookies } from 'react-cookie';
 import Head from 'next/head'
+import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
@@ -12,23 +14,32 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock, faPaw } from '@fortawesome/free-solid-svg-icons'
 import { Navbar } from 'react-bootstrap'
 import useWindowDimensions from '../components/useWindowDimensions'
-import login from '../services/User'
+import { login } from '../services/User'
 
 
 const Login: NextPage = () => {
+    const router = useRouter();
     const { height, width } = useWindowDimensions();
+    const [cookies, setCookie] = useCookies(['token']);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const authenticate = () => {
+    const authenticate = async (event: any) => {
         event?.preventDefault();
         const req = {
             email: email,
             password: password,
         };
         try {
-            console.log(login(req));
+            const loginResponse = await login(req);
+            const loginResponseJson = await loginResponse.json();
+            if (loginResponseJson.token) {
+                setCookie('token', loginResponseJson.token, { path: '/' });
+                console.log('Successfully retrieved token');
+                router.push('/');
+            }
         } catch (e) {
+            alert('Oops, something went wrong!');
             console.error(e);
         }
     }

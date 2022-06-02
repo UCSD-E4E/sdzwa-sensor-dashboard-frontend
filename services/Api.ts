@@ -1,5 +1,5 @@
 export const PROD_ENV = '';
-export const DEV_ENV = 'http://localhost:49610'; //replace with your localhost port
+export const DEV_ENV = 'http://localhost:5000'; //replace with your localhost port
 
 const DEFAULT_HEADERS = {
   'Content-Type': 'application/json',
@@ -40,6 +40,6 @@ type RequestObject = {
       ...DEFAULT_HEADERS,
     };
     console.log(params.headers)
-    fetch(requestObject.url, params).then(json => console.log(`json: ${json}`));
+    return fetch(requestObject.url, params);
   };
   
