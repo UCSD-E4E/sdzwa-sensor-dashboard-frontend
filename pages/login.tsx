@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import { useState } from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Container from 'react-bootstrap/Container'
@@ -11,10 +12,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock, faPaw } from '@fortawesome/free-solid-svg-icons'
 import { Navbar } from 'react-bootstrap'
 import useWindowDimensions from '../components/useWindowDimensions'
-import Link from 'next/link';
+import login from '../services/User'
+
 
 const Login: NextPage = () => {
     const { height, width } = useWindowDimensions();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const authenticate = () => {
+        event?.preventDefault();
+        const req = {
+            email: email,
+            password: password,
+        };
+        try {
+            console.log(login(req));
+        } catch (e) {
+            console.error(e);
+        }
+    }
 
     
     return (
@@ -38,16 +55,16 @@ const Login: NextPage = () => {
                             <InputGroup.Text id="email-addon">
                                 <FontAwesomeIcon icon={faEnvelope} style={{color: 'royalblue'}}/>
                             </InputGroup.Text>
-                            <Form.Control type="email" placeholder="Enter email" />
+                            <Form.Control type="email" placeholder="Enter email" value={email} onChange={({target:{value}}) => {setEmail(value)}}/>
                         </InputGroup>
                         <InputGroup className="mb-3">
                             <InputGroup.Text id="pass-addon">
                                 <FontAwesomeIcon icon={faLock} style={{color: 'royalblue'}}/>
                             </InputGroup.Text>
-                            <Form.Control type="password" placeholder="Password" />
+                            <Form.Control type="password" placeholder="Password" value={password} onChange={({target:{value}}) => {setPassword(value)}}/>
                         </InputGroup >
                         <div style={{display: 'flex', alignItems: 'center', flexDirection: 'row', width: '100%'}}>
-                        <Button variant="primary" type="submit" href=".." style={{flex: 1, marginLeft: '20%', marginRight: '20%', alignItems: 'center', alignSelf: 'center'}}>
+                        <Button onClick={authenticate} variant="primary" type="submit" href=".." style={{flex: 1, marginLeft: '20%', marginRight: '20%', alignItems: 'center', alignSelf: 'center'}}>
                             Login
                         </Button>
                         </div>
