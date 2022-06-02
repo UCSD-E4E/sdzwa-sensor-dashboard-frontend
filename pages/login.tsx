@@ -44,7 +44,6 @@ const Login: NextPage = () => {
         }
     }
 
-    
     return (
         <div className={styles.container} id="login-home" >
             <Head>

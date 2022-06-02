@@ -79,7 +79,7 @@ const Home: NextPage = () => {
       <Container>
         <Row>
           {sensors.map((sensor: any, key: number) => (
-            <Col style={{marginTop: 50}} key={key}>
+            <Col onClick={() => {router.push(`/sensor?id=${sensor.id}`)}} style={{cursor: 'pointer', marginTop: 50}} key={key}>
               <Area width={400} height={300} />
               <div style={{ fontWeight: 'bold', fontSize: 26 }}>{sensor.name}</div>
               <div style={{ fontSize: 22, fontWeight: 'lighter' }}>{sensor.description}</div>
@@ -91,7 +91,7 @@ const Home: NextPage = () => {
             </Col>
           ))}
           <Col>
-            <div onClick={() => {router.push('/edit_sensor')}} style={{ paddingTop: 100, marginTop: 50, marginBottom: 50, height: 300, width: 400, backgroundColor: '#E6EBEE', borderRadius: 15 }}>
+            <div onClick={() => {router.push('/edit_sensor?id=0')}} style={{ cursor: 'pointer', paddingTop: 100, marginTop: 50, marginBottom: 50, height: 300, width: 400, backgroundColor: '#E6EBEE', borderRadius: 15 }}>
               <div style={{ textAlign: 'center', color: 'gray' }}><h2>Add New</h2></div>
               <div style={{ textAlign: 'center', marginTop: -25, fontWeight: 'bold', fontSize: 64, color: 'gray'}}>
                 +
