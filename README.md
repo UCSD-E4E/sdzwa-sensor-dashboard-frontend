@@ -1,3 +1,19 @@
+# Backend Web Presence
+## Background
+The San Diego Zoo Wildlife Association (SDZWA) manages a vast network of multimedia sensors within the grounds of their
+Safari Park. Researchers at SDZWA deploy various sensor types across large physical distances throughout their enclosures.
+Current methods of retrieving data are very hands-on and not scalable. In addition to this scalability problem, there is no
+way to determine the health of a given sensor at any time without physical access. In order to more efficiently manage these
+nodes, we are creating a web-based user interface to view their sensors’ output, metadata, and sensor health - all managed via
+a secure, reliable database capable of collection and storage of sensor information. To implement this solution, our group uses
+React and NodeJS with a SQLite database to build a tool that will centralize access to these sensors. This web application will
+allow researchers to easily view and manage data across large networks, resulting in more accessible information and higher
+potential for meaningful scientific results.
+
+## Organization
+
+The organization of the frontend is as follows. Pages/ holds the login, registration, edit sensor, sensor and dashboard pages written using React-Bootstrap libraries. Components/ holds some external components for the dashboard tiling. Styles/ contains the CSS styling for the application. Services/ contains the API functions for placing API requests to the backend server, separated by user requests in User.ts and sensor requests in Sensor.ts, as well as a createRequest() method that generalizes all requests in Api.ts. 
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
