@@ -17,6 +17,12 @@ The organization of the frontend is as follows. Pages/ holds the login, registra
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
+Required components for this project are React, NodeJS, and NextJS. See below for official documentation on installing those on your device:
+React: https://reactjs.org/docs/getting-started.html
+Node: https://nodejs.org/en/download/package-manager/
+NextJS: https://nextjs.org/docs/getting-started
+
+
 
 First, install the project dependencies:
 
