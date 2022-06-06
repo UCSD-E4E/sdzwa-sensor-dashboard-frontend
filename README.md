@@ -18,8 +18,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 Required components for this project are React, NodeJS, and NextJS. See below for official documentation on installing those on your device:
+
 React: https://reactjs.org/docs/getting-started.html
+
 Node: https://nodejs.org/en/download/package-manager/
+
 NextJS: https://nextjs.org/docs/getting-started
 
 
