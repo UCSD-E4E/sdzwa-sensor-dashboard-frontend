@@ -1,20 +1,95 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { useCookies } from 'react-cookie'
 import styles from '../styles/Home.module.css'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-
-import InputGroup from 'react-bootstrap/InputGroup'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faLock, faPaw } from '@fortawesome/free-solid-svg-icons'
 import { Navbar } from 'react-bootstrap'
-import useWindowDimensions from '../components/useWindowDimensions'
+import { useEffect } from 'react'
+import { Sensor, EditSensor, getSensor, addSensor, editSensor } from '../services/Sensor'
 
 const Edit: NextPage = () => {
     // const { height, width } = useWindowDimensions();
+    const [cookies, setCookies] = useCookies(['token']);
+    const router = useRouter();
+    const { id } = router.query;
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [type, setType] = useState(0);
+    const [source, setSource] = useState(0);
+    const [url, setUrl] = useState('');
+
+    useEffect(() => {
+        async function fetchData() {
+          if (!cookies.token || cookies.token == '') {
+            router.push('/registration');
+          } else if (id != '0') {
+            try {
+                const req: Sensor = {
+                  id: String(id),
+                  authToken: cookies.token,
+                }
+                const sensorResponse = await getSensor(req);
+                const sensorResponseJson = await sensorResponse.json();
+                console.log(sensorResponseJson);
+                setName(sensorResponseJson.name);
+                setDescription(sensorResponseJson.description);
+                setType(sensorResponseJson.type);
+                setSource(sensorResponseJson.source);
+                setUrl(sensorResponseJson.url);
+              } catch (e) {
+                alert('Oops, something went wrong!');
+                console.error(e);
+              }
+          }
+        }
+        fetchData();
+    }, [router, cookies]);
+
+    const onEdit = async (event: any) => {
+        event.preventDefault();
+        const req: EditSensor = {
+            name: name,
+            description: description,
+            type: type,
+            source: source,
+            url: url,
+            authToken: cookies.token
+        };
+
+        if (id == '0') {
+            try {
+                const addSensorResponse = await addSensor(req);
+                const addSensorResponseJson = await addSensorResponse.json();
+                if (addSensorResponseJson && addSensorResponseJson.msg == 'success') {
+                    alert('Successfully created new sensor!');
+                    router.push('/');
+                } else {
+                    alert(addSensorResponseJson.msg);
+                }
+            } catch (e) {
+                alert('Oops, something went wrong!');
+                console.error(e);
+            }
+        } else {
+            try {
+                const editSensorResponse = await editSensor(req, String(id));
+                const editSensorResponseJson = await editSensorResponse.json();
+                if (editSensorResponseJson && editSensorResponseJson.msg == 'success') {
+                    alert('Successfully updated sensor!');
+                    router.push(`/sensor?id=${id}`);
+                } else {
+                    alert(editSensorResponseJson.msg);
+                }
+            } catch (e) {
+                alert('Oops, something went wrong!');
+                console.error(e);
+            }
+        }
+    }
     
     return (
         <div className={styles.container} id="login-home" >
@@ -26,16 +101,25 @@ const Edit: NextPage = () => {
             
             <Navbar bg="light">
                 <Container>
-                    <Button variant="outline-primary" size="sm" href="..">Back</Button>{' '}
+                    <Button onClick={() => {
+                        if (id == '0') router.push('/');
+                        else router.push(`/sensor?id=${id}`);
+                    }} variant="outline-primary" size="sm">Back</Button>{' '}
                     <Navbar.Brand href="#home">SDZWA Sensor Dashboard</Navbar.Brand>
                 </Container>
             </Navbar>
             
             <Container style={{display: 'flex', alignItems: 'center', flexDirection: 'column', height: '90vh'}}>
+                    <h1 style={{fontSize: 28, marginTop: 25, marginBottom: 25}}>{(id == '0') ? 'Add' : 'Edit'} Sensor</h1>
                     <Form>
                     <Form.Group className="mb-3" controlId="formBasicText">
                         <Form.Label>Sensor Name</Form.Label>
-                        <Form.Control type="name" placeholder="Zoo Visitors" />
+                        <Form.Control 
+                            type="name" 
+                            placeholder="Zoo Visitors" 
+                            value={name} 
+                            onChange={({target:{value}}) => {setName(value)}}
+                        />
                         <Form.Text className="text-muted">
                             This is the name that will be used when displaying the sensor.
                         </Form.Text>
@@ -43,7 +127,12 @@ const Edit: NextPage = () => {
 
                     <Form.Group className="mb-3" controlId="formBasicText">
                         <Form.Label>Sensor Description</Form.Label>
-                        <Form.Control type="desc" placeholder="This data tracks the daily visitor count at the Zoo" />
+                        <Form.Control 
+                            type="desc" 
+                            placeholder="This data tracks the daily visitor count at the Zoo" 
+                            value={description} 
+                            onChange={({target:{value}}) => {setDescription(value)}}
+                        />
                         <Form.Text className="text-muted">
                             This is a brief description of the data provided by the sensor.
                         </Form.Text>
@@ -51,30 +140,68 @@ const Edit: NextPage = () => {
 
                     <Form.Group className="mb-3" controlId="dataSelectButton">
                         <Form.Label>Data Type</Form.Label>{' '}
-                        <Button variant="outline-primary" size="sm">Numeric</Button>{' '}
-                        <Button variant="outline-primary" size="sm">Video</Button>{' '}
-                        <Button variant="outline-primary" size="sm">Audio</Button>{' '}
+                        <Button 
+                            onClick={() => {setType(0)}}
+                            variant="outline-primary"
+                            size="sm"
+                            active={type == 0}
+                        >
+                            Numeric
+                        </Button>{' '}
+                        <Button 
+                            onClick={() => {setType(1)}}
+                            variant="outline-primary"
+                            size="sm"
+                            active={type == 1}
+                        >
+                            Video
+                        </Button>{' '}
+                        <Button 
+                            onClick={() => {setType(2)}}
+                            variant="outline-primary"
+                            size="sm"
+                            active={type == 2}
+                        >
+                            Audio
+                        </Button>{' '}
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="dataSelectButton">
+                        <Form.Label>Data Source</Form.Label>{' '}
+                        <Button 
+                            onClick={() => {setSource(0)}}
+                            variant="outline-primary"
+                            size="sm"
+                            active={source == 0}
+                        >
+                            URL
+                        </Button>{' '}
+                        <Button 
+                            onClick={() => {setSource(1)}}
+                            variant="outline-primary"
+                            size="sm"
+                            active={source == 1}
+                        >
+                            Local Storage
+                        </Button>{' '}
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicText">
-                        <Form.Label>Data Source</Form.Label>
-                        <Form.Control type="desc" placeholder="" />
+                        <Form.Label>Data URL</Form.Label>
+                        <Form.Control 
+                            type="desc" 
+                            placeholder="http://example.com/data" 
+                            value={url} 
+                            onChange={({target:{value}}) => {setUrl(value)}}
+                        />
                         <Form.Text className="text-muted">
-                        This is where data will come from.
+                            Please enter the HTTP URL if pulling from a remote location or filename if pulling from local storage.
                         </Form.Text>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicText">
-                        <Form.Label>Data Presentation</Form.Label>
-                        <Form.Control type="desc" placeholder="" />
-                        <Form.Text className="text-muted">
-                        This is what the data will look like.
-                        </Form.Text>
-                    </Form.Group>
 
 
-
-                    <Button variant="primary" type="submit" href="..">
+                    <Button onClick={onEdit} variant="primary" type="submit" href="..">
                         Submit
                     </Button>
                     </Form> 
