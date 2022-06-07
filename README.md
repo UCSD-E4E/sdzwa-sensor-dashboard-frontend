@@ -10,6 +10,16 @@ React and NodeJS with a SQLite database to build a tool that will centralize acc
 allow researchers to easily view and manage data across large networks, resulting in more accessible information and higher
 potential for meaningful scientific results.
 
+## The Team
+
+The frontend team consists of:
+
+* Ahmed Hussaini: MS CSE --> AI/ML
+* Brandon DalPorto: MS CSE --> Systems/Security
+* Malcolm McSwain: MS CSE --> Systems/WebDev
+
+We are all first year Master's students interesting in creating a web application capable of real world use. Using our expertise gained from our different backgrounds and educations, we have brought done our best to create a viable product over this past quarter.
+
 ## Organization
 
 The organization of the frontend is as follows. Pages/ holds the login, registration, edit sensor, sensor and dashboard pages written using React-Bootstrap libraries. Components/ holds some external components for the dashboard tiling. Styles/ contains the CSS styling for the application. Services/ contains the API functions for placing API requests to the backend server, separated by user requests in User.ts and sensor requests in Sensor.ts, as well as a createRequest() method that generalizes all requests in Api.ts. 
